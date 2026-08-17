@@ -1,48 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Send, Download, Sparkles, Orbit, Layers, Compass } from 'lucide-react';
+import { Menu, X, Download, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Logo Icon Component supporting 4 clean variants
+// 4 Ultra-Minimal Icon Variants (No text/letters, clean geometric line art)
 export const EunhasuLogoIcon = ({ variant = 1, className = "w-5 h-5" }) => {
     if (variant === 2) {
-        // Variant 2: Orbit Network
+        // Option 2: Minimal Orbit Ring & Core
         return (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="3" fill="currentColor" fillOpacity="0.2" />
-                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)" stroke="currentColor" strokeDasharray="3 3" />
-                <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)" stroke="currentColor" />
-                <circle cx="19" cy="8" r="1.5" fill="currentColor" />
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-30 12 12)" />
+                <circle cx="12" cy="12" r="3.5" fill="currentColor" fillOpacity="0.25" />
             </svg>
         );
     }
     if (variant === 3) {
-        // Variant 3: Galactic Stream E
+        // Option 3: Triple Spiral Galaxy
         return (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                <path d="M19 6C15 5 8 5 6 9c-2 4 1 8 6 8 4 0 7-2 7-5M6 12h10" />
-                <circle cx="19" cy="5" r="1.5" fill="currentColor" />
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M12 4a8 8 0 0 1 8 8c0 2.5-1.5 4.8-3.8 5.8" />
+                <path d="M4 12a8 8 0 0 1 8-8c2.5 0 4.8 1.5 5.8 3.8" />
+                <path d="M12 20a8 8 0 0 1-8-8c0-2.5 1.5-4.8 3.8-5.8" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
             </svg>
         );
     }
     if (variant === 4) {
-        // Variant 4: Constellation
+        // Option 4: Dual Constellation Stars (Worker + Supervisor Pairing)
         return (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="6" cy="6" r="2" fill="currentColor" />
-                <circle cx="18" cy="7" r="2" fill="currentColor" />
-                <circle cx="12" cy="18" r="2" fill="currentColor" />
-                <line x1="6" y1="6" x2="18" y2="7" stroke="currentColor" />
-                <line x1="18" y1="7" x2="12" y2="18" stroke="currentColor" />
-                <line x1="12" y1="18" x2="6" y2="6" stroke="currentColor" strokeDasharray="2 2" />
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 3l1.2 3.8L23 8l-3.8 1.2L18 13l-1.2-3.8L13 8l3.8-1.2L18 3z" />
+                <path d="M7 13l0.8 2.2L10 16l-2.2 0.8L7 19l-0.8-2.2L4 16l2.2-0.8L7 13z" />
+                <line x1="14.5" y1="9.5" x2="8.5" y2="14.5" stroke="currentColor" strokeDasharray="2 2" />
             </svg>
         );
     }
-    // Default Variant 1: Modern Galaxy Whirlpool Spiral
+    // Default Option 1: Clean 4-Point Sparkle Star + Satellite Dot
     return (
-        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <path d="M12 3a9 9 0 0 1 9 9c0 3.5-2 6.5-5 8M12 21a9 9 0 0 1-9-9c0-3.5 2-6.5 5-8" />
-            <path d="M12 7a5 5 0 0 1 5 5c0 2-1 3.8-3 4.5M12 17a5 5 0 0 1-5-5c0-2 1-3.8 3-4.5" />
-            <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+            <circle cx="19" cy="19" r="1.5" fill="currentColor" />
         </svg>
     );
 };
@@ -67,6 +63,13 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
         { name: '문의하기', href: '#contact' },
     ];
 
+    const logoOptions = [
+        { id: 1, name: '1. 별빛 심볼 (Sparkle)' },
+        { id: 2, name: '2. 궤도 링 (Orbit)' },
+        { id: 3, name: '3. 은하 나선 (Spiral)' },
+        { id: 4, name: '4. 별자리 (Constellation)' },
+    ];
+
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 py-3 shadow-lg shadow-black/40' : 'bg-transparent py-5'}`}>
             <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
@@ -74,12 +77,12 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                 {/* Brand Logo with Option to Preview Variants */}
                 <div className="flex items-center space-x-3">
                     <a href="#home" className="flex items-center space-x-2.5 group">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                            <EunhasuLogoIcon variant={logoVariant} className="w-5 h-5 text-white" />
+                        <div className="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                            <EunhasuLogoIcon variant={logoVariant} className="w-5 h-5" />
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg font-bold tracking-tight text-white font-outfit flex items-center gap-1">
-                                은하수 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">AI</span>
+                                은하수 <span className="text-blue-400">AI</span>
                             </span>
                             <span className="text-[10px] text-slate-400 font-medium -mt-1">
                                 Eunhasu AI
@@ -87,14 +90,14 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                         </div>
                     </a>
 
-                    {/* Quick Logo Style Switcher Button */}
+                    {/* Simple Logo Switcher */}
                     <button
                         onClick={() => setShowLogoPicker(!showLogoPicker)}
-                        className="hidden sm:inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-blue-300 hover:border-slate-700 transition-colors"
-                        title="로고 시안 4종 미리보기 변경"
+                        className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-300 hover:border-slate-700 transition-colors"
+                        title="아이콘 시안 4종 미리보기 변경"
                     >
-                        <span>시안 #{logoVariant}</span>
-                        <span className="text-[9px] text-blue-400">변경 ▾</span>
+                        <span>아이콘 #{logoVariant}</span>
+                        <span className="text-[9px] text-blue-400">선택 ▾</span>
                     </button>
                 </div>
 
@@ -120,7 +123,7 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                         className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600/90 hover:bg-blue-500 text-white text-xs font-semibold shadow-md transition-all"
                     >
                         <Download className="w-3.5 h-3.5" />
-                        Remote AI APK 다운로드
+                        Remote AI APK 받기
                     </a>
                 </div>
 
@@ -134,27 +137,22 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                 </button>
             </div>
 
-            {/* Logo Picker Popover */}
+            {/* Logo Picker Bar */}
             {showLogoPicker && (
                 <div className="max-w-6xl mx-auto px-6 pt-2">
-                    <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-3 text-xs text-slate-300">
-                        <span className="text-slate-400 font-semibold">🎨 로고 시안 선택:</span>
-                        {[
-                            { id: 1, label: '시안 1: 은하 나선(Whirlpool)' },
-                            { id: 2, label: '시안 2: 궤도 네트워크(Orbit)' },
-                            { id: 3, label: '시안 3: 스트림 E(Stream E)' },
-                            { id: 4, label: '시안 4: 별자리 네트워크(Constellation)' },
-                        ].map((v) => (
+                    <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                        <span className="text-slate-400 font-semibold mr-1">아이콘 시안:</span>
+                        {logoOptions.map((opt) => (
                             <button
-                                key={v.id}
+                                key={opt.id}
                                 onClick={() => {
-                                    if (onSelectLogo) onSelectLogo(v.id);
+                                    if (onSelectLogo) onSelectLogo(opt.id);
                                     setShowLogoPicker(false);
                                 }}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${logoVariant === v.id ? 'bg-blue-600/20 border-blue-500 text-blue-300' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
+                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${logoVariant === opt.id ? 'bg-blue-600/20 border-blue-500 text-blue-300 font-semibold' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
                             >
-                                <EunhasuLogoIcon variant={v.id} className="w-4 h-4" />
-                                <span>{v.label}</span>
+                                <EunhasuLogoIcon variant={opt.id} className="w-4 h-4" />
+                                <span>{opt.name}</span>
                             </button>
                         ))}
                     </div>
@@ -190,7 +188,7 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                                     onClick={() => setIsOpen(false)}
                                 >
                                     <Download className="w-4 h-4" />
-                                    Remote AI APK 다운로드 (v1.0.0)
+                                    Remote AI APK 받기 (v1.0.0)
                                 </a>
                                 <a
                                     href="mailto:eunhasuai@gmail.com"
