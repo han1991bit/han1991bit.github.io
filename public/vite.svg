@@ -1,9 +1,9 @@
 <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="solidStream" x1="0%" y1="70%" x2="100%" y2="30%">
-      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4" />
-      <stop offset="50%" stop-color="#bae6fd" stop-opacity="0.65" />
-      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#bae6fd" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.3" />
     </linearGradient>
   </defs>
   <!-- Dark Navy Base -->
@@ -19,16 +19,8 @@
   <!-- Solid White Bottom-Right Star -->
   <path d="M 25.5 18.5 C 25.5 21.5, 26.8 22.8, 30 22.8 C 26.8 22.8, 25.5 24, 25.5 27 C 25.5 24, 24.2 22.8, 21 22.8 C 24.2 22.8, 25.5 21.5, 25.5 18.5 Z" fill="#ffffff" />
   
-  <!-- 3 Brightened & Scaled Satellite Stars with Radiant Halo (16px 탭 최적화) -->
-  <!-- 1. Left Sub-Star (9시 하단) -->
-  <circle cx="3.8" cy="19.8" r="2.2" fill="#38bdf8" opacity="0.4" />
-  <circle cx="3.8" cy="19.8" r="1.4" fill="#ffffff" />
-
-  <!-- 2. Top-Right Sub-Star -->
-  <circle cx="28.2" cy="7.2" r="2.2" fill="#38bdf8" opacity="0.4" />
-  <circle cx="28.2" cy="7.2" r="1.4" fill="#ffffff" />
-
-  <!-- 3. Bottom-Left Sub-Star -->
-  <circle cx="11.5" cy="24.0" r="2.0" fill="#38bdf8" opacity="0.4" />
-  <circle cx="11.5" cy="24.0" r="1.3" fill="#ffffff" />
+  <!-- 군더더기 없이 은은하게 식별되는 1픽셀 미세 별빛 (r: 1.0, opacity: 0.85) -->
+  <circle cx="3.8" cy="19.8" r="1.0" fill="#ffffff" opacity="0.85" />
+  <circle cx="28.2" cy="7.2" r="1.0" fill="#ffffff" opacity="0.85" />
+  <circle cx="11.5" cy="24.0" r="0.9" fill="#ffffff" opacity="0.8" />
 </svg>
