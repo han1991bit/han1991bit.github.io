@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Download, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// 공통 defs (단색/아이스블루 미니멀 투명 그라데이션)
+// 공통 defs (30도 가로 은하수 리본 그라데이션)
 const RenderDefs = ({ id }) => (
     <defs>
         <linearGradient id={`streamGrad30_${id}`} x1="0%" y1="70%" x2="100%" y2="30%">
@@ -18,7 +18,7 @@ const RenderDefs = ({ id }) => (
     </defs>
 );
 
-// 30도 완만한 가로 은하수 리본 공통 경로
+// 30도 완만한 가로 은하수 리본 공통 배경
 const RibbonBackground = ({ id }) => (
     <>
         <RenderDefs id={id} />
@@ -35,106 +35,114 @@ const RibbonBackground = ({ id }) => (
     </>
 );
 
-// [30도 완만한 가로 흐름 & 키운 별 / 아웃라인 시안 4종]
+// 1번 시안의 점(Dots) 개수, 위치, 광도 공통 컴포넌트
+const SatelliteDots = () => (
+    <>
+        <circle cx="14" cy="46" r="1.8" fill="#ffffff" opacity="0.85" />
+        <circle cx="88" cy="22" r="1.8" fill="#ffffff" opacity="0.85" />
+        <circle cx="36" cy="74" r="1.6" fill="#ffffff" opacity="0.75" />
+    </>
+);
+
+// [1번 솔리드 vs 2번 메인 별 두께 키운 아웃라인 비교 4종]
 export const EunhasuLogoIcon = ({ variant = 1, className = "w-7 h-7" }) => {
     if (variant === 2) {
-        // 시안 2: [테두리만 아웃라인 (Stroke Line)] - 스케치 느낌의 굵은 화이트 아웃라인
+        // 시안 2: [2번 디벨롭 - 볼드 아웃라인] 메인 별 두께 4.2px, 서브 별 3.2px (1번 점 세팅 100% 동일)
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <RibbonBackground id="v2" />
-                {/* 1. Center Large Star (Outlined) */}
+                {/* 1. Center Large Star (Thickened Outlined Stroke 4.2px) */}
                 <path
                     d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
+                    stroke="#ffffff"
+                    strokeWidth="4.2"
+                    strokeLinejoin="round"
+                />
+                {/* 2. Top-Left Star (Outlined Stroke 3.2px) */}
+                <path
+                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
                     stroke="#ffffff"
                     strokeWidth="3.2"
                     strokeLinejoin="round"
                 />
-                {/* 2. Top-Left Star (Outlined) */}
-                <path
-                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
-                    stroke="#ffffff"
-                    strokeWidth="2.8"
-                    strokeLinejoin="round"
-                />
-                {/* 3. Bottom-Right Star (Outlined) */}
+                {/* 3. Bottom-Right Star (Outlined Stroke 3.2px) */}
                 <path
                     d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                     stroke="#ffffff"
-                    strokeWidth="2.8"
+                    strokeWidth="3.2"
                     strokeLinejoin="round"
                 />
-                <circle cx="15" cy="48" r="1.6" fill="#ffffff" />
-                <circle cx="86" cy="20" r="1.6" fill="#ffffff" />
+                {/* 1번 시안 점 개수/위치/광도 동일 적용 */}
+                <SatelliteDots />
             </svg>
         );
     }
 
     if (variant === 3) {
-        // 시안 3: [하이브리드] 메인 중심별은 솔리드 채움 + 서브별은 아웃라인 테두리
+        // 시안 3: [2번 헤비 볼드 - 더 두꺼운 아웃라인] 메인 별 두께 5.2px, 서브 별 3.8px
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <RibbonBackground id="v3" />
-                {/* 1. Center Large Star (Solid Pure White) */}
+                {/* 1. Center Large Star (Heavy Outlined Stroke 5.2px) */}
                 <path
                     d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
-                    fill="#ffffff"
+                    stroke="#ffffff"
+                    strokeWidth="5.2"
+                    strokeLinejoin="round"
                 />
-                {/* 2. Top-Left Star (Outlined) */}
+                {/* 2. Top-Left Star (Heavy Outlined Stroke 3.8px) */}
                 <path
                     d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
                     stroke="#ffffff"
-                    strokeWidth="2.8"
+                    strokeWidth="3.8"
                     strokeLinejoin="round"
                 />
-                {/* 3. Bottom-Right Star (Outlined) */}
+                {/* 3. Bottom-Right Star (Heavy Outlined Stroke 3.8px) */}
                 <path
                     d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                     stroke="#ffffff"
-                    strokeWidth="2.8"
+                    strokeWidth="3.8"
                     strokeLinejoin="round"
                 />
-                <circle cx="14" cy="46" r="1.6" fill="#ffffff" opacity="0.85" />
-                <circle cx="88" cy="22" r="1.6" fill="#ffffff" opacity="0.85" />
+                {/* 1번 시안 점 개수/위치/광도 동일 적용 */}
+                <SatelliteDots />
             </svg>
         );
     }
 
     if (variant === 4) {
-        // 시안 4: [아웃라인 + 중심 코어 발광 점] 테두리 선 안에 작은 코어 점
+        // 시안 4: [2번 확장 볼드 아웃라인] 메인 별 크기 살짝 키우고 두께 4.5px
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <RibbonBackground id="v4" />
-                {/* 1. Center Large Star (Outlined + Core) */}
+                {/* 1. Center Large Star (Slightly larger outline: M 50 13 ... 84 ... 81 ... 16) */}
                 <path
-                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
+                    d="M 50 13 C 50 37, 60 47, 84 47 C 60 47, 50 57, 50 81 C 50 57, 40 47, 16 47 C 40 47, 50 37, 50 13 Z"
                     stroke="#ffffff"
-                    strokeWidth="3"
+                    strokeWidth="4.5"
                     strokeLinejoin="round"
                 />
-                <circle cx="50" cy="47" r="3.2" fill="#ffffff" />
-
-                {/* 2. Top-Left Star (Outlined + Core) */}
+                {/* 2. Top-Left Star */}
                 <path
                     d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
                     stroke="#ffffff"
-                    strokeWidth="2.6"
+                    strokeWidth="3.2"
                     strokeLinejoin="round"
                 />
-                <circle cx="20" cy="21" r="2" fill="#ffffff" />
-
-                {/* 3. Bottom-Right Star (Outlined + Core) */}
+                {/* 3. Bottom-Right Star */}
                 <path
                     d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                     stroke="#ffffff"
-                    strokeWidth="2.6"
+                    strokeWidth="3.2"
                     strokeLinejoin="round"
                 />
-                <circle cx="80" cy="72" r="2" fill="#ffffff" />
+                {/* 1번 시안 점 개수/위치/광도 동일 적용 */}
+                <SatelliteDots />
             </svg>
         );
     }
 
-    // Default 시안 1: [확대된 솔리드 순백색 별 (Solid Bold)] - 30도 완만한 가로 흐름
+    // Default 시안 1: [1번 원본 - 솔리드 순백색 별 (Solid Bold)]
     return (
         <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <RibbonBackground id="v1" />
@@ -153,10 +161,8 @@ export const EunhasuLogoIcon = ({ variant = 1, className = "w-7 h-7" }) => {
                 d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                 fill="#ffffff"
             />
-            {/* Satellite Dots */}
-            <circle cx="14" cy="46" r="1.8" fill="#ffffff" opacity="0.85" />
-            <circle cx="88" cy="22" r="1.8" fill="#ffffff" opacity="0.85" />
-            <circle cx="36" cy="74" r="1.6" fill="#ffffff" opacity="0.75" />
+            {/* 1번 시안 점 개수/위치/광도 */}
+            <SatelliteDots />
         </svg>
     );
 };
@@ -182,17 +188,17 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
     ];
 
     const logoOptions = [
-        { id: 1, name: '시안 1: 30도 가로흐름 + 확대 솔리드 별 (Solid Bold)' },
-        { id: 2, name: '시안 2: 30도 가로흐름 + 테두리 아웃라인 별 (Outlined)' },
-        { id: 3, name: '시안 3: 메인 솔리드 + 서브 아웃라인 (Hybrid)' },
-        { id: 4, name: '시안 4: 아웃라인 별 + 중심 발광 코어 (Glowing Core)' },
+        { id: 1, name: '시안 1: 솔리드 순백색 별 (Solid Stars - 원본)' },
+        { id: 2, name: '시안 2: 두께 키운 아웃라인 (Thickened 4.2px Outline)' },
+        { id: 3, name: '시안 3: 더 묵직한 아웃라인 (Heavy 5.2px Outline)' },
+        { id: 4, name: '시안 4: 메인별 확장 아웃라인 (Expanded Bold Outline)' },
     ];
 
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 py-3 shadow-lg shadow-black/40' : 'bg-transparent py-5'}`}>
             <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
                 
-                {/* Brand Logo with 30-deg Developed Design */}
+                {/* Brand Logo Comparison */}
                 <div className="flex items-center space-x-3">
                     <a href="#home" className="flex items-center space-x-2.5 group">
                         <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center p-1 group-hover:border-blue-400/60 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all">
@@ -212,9 +218,9 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                     <button
                         onClick={() => setShowLogoPicker(!showLogoPicker)}
                         className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-300 hover:border-blue-500/40 transition-colors"
-                        title="30도 가로흐름 디벨롭 시안 4종 미리보기 변경"
+                        title="솔리드 vs 아웃라인 두께 비교 시안 변경"
                     >
-                        <span>30도 시안 #{logoVariant}</span>
+                        <span>{logoVariant === 1 ? '시안 #1 (솔리드)' : `시안 #${logoVariant} (아웃라인)`}</span>
                         <span className="text-[9px] text-blue-400">선택 ▾</span>
                     </button>
                 </div>
@@ -259,7 +265,7 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
             {showLogoPicker && (
                 <div className="max-w-6xl mx-auto px-6 pt-2">
                     <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                        <span className="text-slate-400 font-semibold mr-1">🌌 30도 디벨롭 시안:</span>
+                        <span className="text-slate-400 font-semibold mr-1">🔍 솔리드 vs 아웃라인 비교:</span>
                         {logoOptions.map((opt) => (
                             <button
                                 key={opt.id}
