@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Download, Send } from 'lucide-react';
+import { Menu, X, Download, Send, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // [은하수 AI 공식 로고] 30도 가로 은하수 리본 & 5.2px 볼드 아웃라인 주성
-export const EunhasuLogoIcon = ({ className = "w-8 h-8" }) => (
+export const EunhasuLogoIcon = ({ className = "w-8 h-8", solid = false }) => (
     <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="eunhasuMainStream" x1="0%" y1="70%" x2="100%" y2="30%">
@@ -29,28 +29,22 @@ export const EunhasuLogoIcon = ({ className = "w-8 h-8" }) => (
             fill="url(#eunhasuSubStream)"
         />
 
-        {/* 1. Center Large Star (Outlined 5.2px) */}
+        {/* 1. Center Large Star */}
         <path
             d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
-            stroke="#ffffff"
-            strokeWidth="5.2"
-            strokeLinejoin="round"
+            {...(solid ? { fill: "#ffffff" } : { stroke: "#ffffff", strokeWidth: "5.2", strokeLinejoin: "round" })}
         />
 
-        {/* 2. Top-Left Star (Outlined 3.8px) */}
+        {/* 2. Top-Left Star */}
         <path
             d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
-            stroke="#ffffff"
-            strokeWidth="3.8"
-            strokeLinejoin="round"
+            {...(solid ? { fill: "#ffffff" } : { stroke: "#ffffff", strokeWidth: "3.8", strokeLinejoin: "round" })}
         />
 
-        {/* 3. Bottom-Right Star (Outlined 3.8px) */}
+        {/* 3. Bottom-Right Star */}
         <path
             d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
-            stroke="#ffffff"
-            strokeWidth="3.8"
-            strokeLinejoin="round"
+            {...(solid ? { fill: "#ffffff" } : { stroke: "#ffffff", strokeWidth: "3.8", strokeLinejoin: "round" })}
         />
 
         {/* Satellite dots (x:11, y:62 / x:88, y:22 / x:36, y:74) */}
@@ -63,6 +57,8 @@ export const EunhasuLogoIcon = ({ className = "w-8 h-8" }) => (
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [activeFavicon, setActiveFavicon] = useState('solid'); // 'solid' | 'inverted' | 'cyan'
+    const [showFaviconTester, setShowFaviconTester] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -71,6 +67,18 @@ const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Dynamically change browser tab favicon in real time
+    const handleSetFavicon = (type) => {
+        setActiveFavicon(type);
+        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+        link.type = 'image/svg+xml';
+        link.rel = 'icon';
+        if (type === 'inverted') link.href = '/favicon-inverted.svg';
+        else if (type === 'cyan') link.href = '/favicon-cyan-glow.svg';
+        else link.href = '/favicon-solid.svg';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    };
 
     const navLinks = [
         { name: 'Remote AI (제품)', href: '#remote-ai' },
@@ -83,20 +91,32 @@ const Navbar = () => {
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 py-3 shadow-lg shadow-black/40' : 'bg-transparent py-5'}`}>
             <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
                 
-                {/* Final Official Brand Logo */}
-                <a href="#home" className="flex items-center space-x-3 group">
-                    <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center p-1 group-hover:border-blue-400/60 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all">
-                        <EunhasuLogoIcon className="w-8 h-8" />
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-xl font-bold tracking-tight text-white font-outfit flex items-center gap-1.5">
-                            은하수 <span className="text-blue-400">AI</span>
-                        </span>
-                        <span className="text-[10px] text-slate-400 font-medium -mt-1 tracking-wider uppercase">
-                            Eunhasu AI LC.
-                        </span>
-                    </div>
-                </a>
+                {/* Brand Logo & Favicon Tester Trigger */}
+                <div className="flex items-center space-x-3">
+                    <a href="#home" className="flex items-center space-x-2.5 group">
+                        <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center p-1 group-hover:border-blue-400/60 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all">
+                            <EunhasuLogoIcon className="w-8 h-8" />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-xl font-bold tracking-tight text-white font-outfit flex items-center gap-1.5">
+                                은하수 <span className="text-blue-400">AI</span>
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-medium -mt-1 tracking-wider uppercase">
+                                Eunhasu AI LC.
+                            </span>
+                        </div>
+                    </a>
+
+                    {/* Quick Tab Favicon Switcher Button */}
+                    <button
+                        onClick={() => setShowFaviconTester(!showFaviconTester)}
+                        className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-300 hover:border-blue-500/40 transition-colors"
+                        title="탭 아이콘(파비콘) 스타일 실시간 전환"
+                    >
+                        <span>탭 아이콘: {activeFavicon === 'solid' ? '1. 솔리드 채움' : activeFavicon === 'inverted' ? '2. 화이트 색반전' : '3. 사이언 글로우'}</span>
+                        <span className="text-[9px] text-blue-400">변경 ▾</span>
+                    </button>
+                </div>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center space-x-1">
@@ -133,6 +153,42 @@ const Navbar = () => {
                     {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
             </div>
+
+            {/* Favicon Tester Popover: Allows user to click and watch browser tab icon change immediately */}
+            {showFaviconTester && (
+                <div className="max-w-6xl mx-auto px-6 pt-2">
+                    <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-3 text-xs text-slate-300">
+                        <span className="text-slate-400 font-semibold mr-1">🔍 탭 파비콘 실시간 변경:</span>
+                        
+                        {/* 1. Solid Filled */}
+                        <button
+                            onClick={() => handleSetFavicon('solid')}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${activeFavicon === 'solid' ? 'bg-blue-600/20 border-blue-500 text-blue-300 font-semibold' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
+                        >
+                            <img src="/favicon-solid.svg" alt="Solid" className="w-4 h-4 rounded" />
+                            <span>1. 별 내부 채움 (다크 배경 + 솔리드 화이트 별)</span>
+                        </button>
+
+                        {/* 2. Color Inverted */}
+                        <button
+                            onClick={() => handleSetFavicon('inverted')}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${activeFavicon === 'inverted' ? 'bg-blue-600/20 border-blue-500 text-blue-300 font-semibold' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
+                        >
+                            <img src="/favicon-inverted.svg" alt="Inverted" className="w-4 h-4 rounded" />
+                            <span>2. 화이트 색반전 (밝은 배경 + 딥 네이비 별)</span>
+                        </button>
+
+                        {/* 3. Cyan Glow */}
+                        <button
+                            onClick={() => handleSetFavicon('cyan')}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${activeFavicon === 'cyan' ? 'bg-blue-600/20 border-blue-500 text-blue-300 font-semibold' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
+                        >
+                            <img src="/favicon-cyan-glow.svg" alt="Cyan Glow" className="w-4 h-4 rounded" />
+                            <span>3. 사이언 글로우 (발광 배경 + 솔리드 별)</span>
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {/* Mobile Menu Dropdown */}
             <AnimatePresence>
