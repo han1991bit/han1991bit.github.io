@@ -2,43 +2,65 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Download, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// 4 Ultra-Minimal Icon Variants (No text/letters, clean geometric line art)
-export const EunhasuLogoIcon = ({ variant = 1, className = "w-5 h-5" }) => {
+// [지구에서 바라본 밤하늘 은하수와 강조된 별빛] 4종 SVG 벡터 심볼
+export const EunhasuLogoIcon = ({ variant = 1, className = "w-6 h-6" }) => {
     if (variant === 2) {
-        // Option 2: Minimal Orbit Ring & Core
+        // Option 2: 점묘 은하수 흐름 & 3대 주성 (Stardust Stream)
         return (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-30 12 12)" />
-                <circle cx="12" cy="12" r="3.5" fill="currentColor" fillOpacity="0.25" />
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M3 19c6-2 9-9 18-13" strokeDasharray="1 2.5" strokeWidth="1.5" strokeOpacity="0.9" />
+                <path d="M4 22c6-2 9-9 18-13" strokeDasharray="1.5 3" strokeWidth="2" strokeOpacity="0.6" />
+                <path d="M2 16c6-2 8-8 16-12" strokeDasharray="1 3" strokeWidth="1.2" strokeOpacity="0.4" />
+                {/* 3 Prominent Accent Stars */}
+                <path d="M17 5l0.7 1.6 1.6 0.7-1.6 0.7-0.7 1.6-0.7-1.6-1.6-0.7 1.6-0.7 0.7-1.6z" fill="currentColor" stroke="none" />
+                <path d="M11 11l0.6 1.3 1.3 0.6-1.3 0.6-0.6 1.3-0.6-1.3-1.3-0.6 1.3-0.6 0.6-1.3z" fill="currentColor" stroke="none" />
+                <path d="M6 16l0.5 1.1 1.1 0.5-1.1 0.5-0.5 1.1-0.5-1.1-1.1-0.5 1.1-0.5 0.5-1.1z" fill="currentColor" stroke="none" />
             </svg>
         );
     }
     if (variant === 3) {
-        // Option 3: Triple Spiral Galaxy
+        // Option 3: 밤하늘 유려한 은하수 곡선 & 견우직녀 별 (Night Sky Flow)
         return (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M12 4a8 8 0 0 1 8 8c0 2.5-1.5 4.8-3.8 5.8" />
-                <path d="M4 12a8 8 0 0 1 8-8c2.5 0 4.8 1.5 5.8 3.8" />
-                <path d="M12 20a8 8 0 0 1-8-8c0-2.5 1.5-4.8 3.8-5.8" />
-                <circle cx="12" cy="12" r="2" fill="currentColor" />
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <path d="M2 17C7 15 9 8 16 5c3-1.2 5-0.5 6 1" strokeOpacity="0.9" />
+                <path d="M4 21C9 19 11 12 18 9c3-1.2 4.5-0.5 5 0.5" strokeOpacity="0.5" />
+                {/* Accent Stars */}
+                <path d="M15 3.5l0.8 1.8 1.8 0.8-1.8 0.8-0.8 1.8-0.8-1.8-1.8-0.8 1.8-0.8 0.8-1.8z" fill="currentColor" stroke="none" />
+                <path d="M6 13.5l0.7 1.5 1.5 0.7-1.5 0.7-0.7 1.5-0.7-1.5-1.5-0.7 1.5-0.7 0.7-1.5z" fill="currentColor" stroke="none" />
+                <circle cx="12" cy="11" r="1.1" fill="currentColor" />
+                <circle cx="9" cy="16" r="0.7" fill="currentColor" opacity="0.6" />
+                <circle cx="18" cy="7" r="0.7" fill="currentColor" opacity="0.6" />
             </svg>
         );
     }
     if (variant === 4) {
-        // Option 4: Dual Constellation Stars (Worker + Supervisor Pairing)
+        // Option 4: 솟아오르는 은하수 아치 & 성단 (Milky Way Arch)
         return (
-            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 3l1.2 3.8L23 8l-3.8 1.2L18 13l-1.2-3.8L13 8l3.8-1.2L18 3z" />
-                <path d="M7 13l0.8 2.2L10 16l-2.2 0.8L7 19l-0.8-2.2L4 16l2.2-0.8L7 13z" />
-                <line x1="14.5" y1="9.5" x2="8.5" y2="14.5" stroke="currentColor" strokeDasharray="2 2" />
+            <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                <path d="M2 20C4 10 12 4 22 4" strokeOpacity="0.85" />
+                <path d="M4 22C6 13 14 7 22 7" strokeDasharray="2 3" strokeOpacity="0.5" />
+                {/* 3 Bright Accent Stars along the arch */}
+                <path d="M19 3l0.7 1.6 1.6 0.7-1.6 0.7-0.7 1.6-0.7-1.6-1.6-0.7 1.6-0.7 0.7-1.6z" fill="currentColor" stroke="none" />
+                <path d="M12 7.5l0.6 1.4 1.4 0.6-1.4 0.6-0.6 1.4-0.6-1.4-1.4-0.6 1.4-0.6 0.6-1.4z" fill="currentColor" stroke="none" />
+                <path d="M6 14.5l0.5 1.2 1.2 0.5-1.2 0.5-0.5 1.2-0.5-1.2-1.2-0.5 1.2-0.5 0.5-1.2z" fill="currentColor" stroke="none" />
+                <circle cx="16" cy="6" r="0.8" fill="currentColor" opacity="0.7" />
+                <circle cx="9" cy="11" r="0.7" fill="currentColor" opacity="0.7" />
             </svg>
         );
     }
-    // Default Option 1: Clean 4-Point Sparkle Star + Satellite Dot
+    // Default Option 1: 은하수 물결 띠 & 2개의 또렷한 별빛 (Celestial River)
     return (
-        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-            <circle cx="19" cy="19" r="1.5" fill="currentColor" />
+        <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <path d="M3 18C8 16 10 9 17 6c2-0.8 3.5-0.5 4 0" strokeOpacity="0.5" />
+            <path d="M5 21C10 18 12 11 19 8c1.5-0.6 3-0.3 3.5 0.2" strokeOpacity="0.85" />
+            <path d="M2 15C6 14 8 7 15 4" strokeDasharray="1.5 2.5" strokeOpacity="0.4" />
+            {/* Accent Stars */}
+            <path d="M17 4.5l0.8 1.8 1.8 0.8-1.8 0.8-0.8 1.8-0.8-1.8-1.8-0.8 1.8-0.8 0.8-1.8z" fill="currentColor" stroke="none" />
+            <path d="M7 13.5l0.7 1.5 1.5 0.7-1.5 0.7-0.7 1.5-0.7-1.5-1.5-0.7 1.5-0.7 0.7-1.5z" fill="currentColor" stroke="none" />
+            {/* Micro stardust dots */}
+            <circle cx="12" cy="11" r="0.9" fill="currentColor" opacity="0.7" />
+            <circle cx="10" cy="15" r="0.7" fill="currentColor" opacity="0.5" />
+            <circle cx="14" cy="7" r="0.8" fill="currentColor" opacity="0.7" />
         </svg>
     );
 };
@@ -64,10 +86,10 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
     ];
 
     const logoOptions = [
-        { id: 1, name: '1. 별빛 심볼 (Sparkle)' },
-        { id: 2, name: '2. 궤도 링 (Orbit)' },
-        { id: 3, name: '3. 은하 나선 (Spiral)' },
-        { id: 4, name: '4. 별자리 (Constellation)' },
+        { id: 1, name: '시안 1: 은하수 물결 & 별빛 (Celestial River)' },
+        { id: 2, name: '시안 2: 점묘 은하수 & 3대 주성 (Stardust Stream)' },
+        { id: 3, name: '시안 3: 밤하늘 곡선 & 견우직녀 (Night Sky Flow)' },
+        { id: 4, name: '시안 4: 솟아오르는 은하수 아치 (Milky Way Arch)' },
     ];
 
     return (
@@ -77,8 +99,8 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                 {/* Brand Logo with Option to Preview Variants */}
                 <div className="flex items-center space-x-3">
                     <a href="#home" className="flex items-center space-x-2.5 group">
-                        <div className="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                            <EunhasuLogoIcon variant={logoVariant} className="w-5 h-5" />
+                        <div className="w-10 h-10 rounded-xl bg-slate-900 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-400 transition-all shadow-md shadow-blue-500/10">
+                            <EunhasuLogoIcon variant={logoVariant} className="w-6 h-6" />
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg font-bold tracking-tight text-white font-outfit flex items-center gap-1">
@@ -90,13 +112,13 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                         </div>
                     </a>
 
-                    {/* Simple Logo Switcher */}
+                    {/* Logo Switcher for Earth-view Milky Way */}
                     <button
                         onClick={() => setShowLogoPicker(!showLogoPicker)}
-                        className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-300 hover:border-slate-700 transition-colors"
-                        title="아이콘 시안 4종 미리보기 변경"
+                        className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-300 hover:border-blue-500/40 transition-colors"
+                        title="은하수 흐름 로고 시안 4종 미리보기 변경"
                     >
-                        <span>아이콘 #{logoVariant}</span>
+                        <span>은하수 시안 #{logoVariant}</span>
                         <span className="text-[9px] text-blue-400">선택 ▾</span>
                     </button>
                 </div>
@@ -137,11 +159,11 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                 </button>
             </div>
 
-            {/* Logo Picker Bar */}
+            {/* Logo Picker Popover */}
             {showLogoPicker && (
                 <div className="max-w-6xl mx-auto px-6 pt-2">
                     <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                        <span className="text-slate-400 font-semibold mr-1">아이콘 시안:</span>
+                        <span className="text-slate-400 font-semibold mr-1">🌌 은하수 시안:</span>
                         {logoOptions.map((opt) => (
                             <button
                                 key={opt.id}
