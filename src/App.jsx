@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProductRemoteAI from './components/ProductRemoteAI';
@@ -8,9 +8,11 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
+  const [logoVariant, setLogoVariant] = useState(1);
+
   return (
     <div className="bg-slate-950 min-h-screen text-slate-100 selection:bg-blue-500/30 selection:text-blue-200 font-sans">
-      <Navbar />
+      <Navbar logoVariant={logoVariant} onSelectLogo={setLogoVariant} />
       <main>
         <Hero />
         <ProductRemoteAI />
@@ -18,7 +20,7 @@ function App() {
         <About />
         <Contact />
       </main>
-      <Footer />
+      <Footer logoVariant={logoVariant} />
     </div>
   );
 }
