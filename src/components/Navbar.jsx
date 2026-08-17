@@ -35,89 +35,58 @@ const RibbonBackground = ({ id }) => (
     </>
 );
 
-// 1번 시안의 점(Dots) 개수, 위치, 광도 공통 컴포넌트
-const SatelliteDots = () => (
+// [9시 방향 별 위치를 아래로 내려 메인별과 겹치지 않게 조정한 점(Dots) 컴포넌트]
+const AdjustedSatelliteDots = ({ dotY = 58, dotX = 13 }) => (
     <>
-        <circle cx="14" cy="46" r="1.8" fill="#ffffff" opacity="0.85" />
+        {/* 9시 방향 별을 메인별 좌측 날개(y: 47) 아래(y: dotY)로 내려 명확히 구분 */}
+        <circle cx={dotX} cy={dotY} r="1.8" fill="#ffffff" opacity="0.85" />
         <circle cx="88" cy="22" r="1.8" fill="#ffffff" opacity="0.85" />
         <circle cx="36" cy="74" r="1.6" fill="#ffffff" opacity="0.75" />
     </>
 );
 
-// [1번 솔리드 vs 2번 메인 별 두께 키운 아웃라인 비교 4종]
+// [9시 별 위치 하향 조정 & 아웃라인 두께별 4종]
 export const EunhasuLogoIcon = ({ variant = 1, className = "w-7 h-7" }) => {
     if (variant === 2) {
-        // 시안 2: [2번 디벨롭 - 볼드 아웃라인] 메인 별 두께 4.2px, 서브 별 3.2px (1번 점 세팅 100% 동일)
+        // 시안 2: [시안 3 기반 - 5.2px 아웃라인 + 9시 별 더 아래/외곽 (x:11, y:62)]
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <RibbonBackground id="v2" />
-                {/* 1. Center Large Star (Thickened Outlined Stroke 4.2px) */}
-                <path
-                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
-                    stroke="#ffffff"
-                    strokeWidth="4.2"
-                    strokeLinejoin="round"
-                />
-                {/* 2. Top-Left Star (Outlined Stroke 3.2px) */}
-                <path
-                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
-                    stroke="#ffffff"
-                    strokeWidth="3.2"
-                    strokeLinejoin="round"
-                />
-                {/* 3. Bottom-Right Star (Outlined Stroke 3.2px) */}
-                <path
-                    d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
-                    stroke="#ffffff"
-                    strokeWidth="3.2"
-                    strokeLinejoin="round"
-                />
-                {/* 1번 시안 점 개수/위치/광도 동일 적용 */}
-                <SatelliteDots />
-            </svg>
-        );
-    }
-
-    if (variant === 3) {
-        // 시안 3: [2번 헤비 볼드 - 더 두꺼운 아웃라인] 메인 별 두께 5.2px, 서브 별 3.8px
-        return (
-            <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <RibbonBackground id="v3" />
-                {/* 1. Center Large Star (Heavy Outlined Stroke 5.2px) */}
+                {/* 1. Center Large Star (Heavy 5.2px) */}
                 <path
                     d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
                     stroke="#ffffff"
                     strokeWidth="5.2"
                     strokeLinejoin="round"
                 />
-                {/* 2. Top-Left Star (Heavy Outlined Stroke 3.8px) */}
+                {/* 2. Top-Left Star */}
                 <path
                     d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
                     stroke="#ffffff"
                     strokeWidth="3.8"
                     strokeLinejoin="round"
                 />
-                {/* 3. Bottom-Right Star (Heavy Outlined Stroke 3.8px) */}
+                {/* 3. Bottom-Right Star */}
                 <path
                     d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                     stroke="#ffffff"
                     strokeWidth="3.8"
                     strokeLinejoin="round"
                 />
-                {/* 1번 시안 점 개수/위치/광도 동일 적용 */}
-                <SatelliteDots />
+                {/* 9시 별: x:11, y:62로 넉넉하게 이격 */}
+                <AdjustedSatelliteDots dotX={11} dotY={62} />
             </svg>
         );
     }
 
-    if (variant === 4) {
-        // 시안 4: [2번 확장 볼드 아웃라인] 메인 별 크기 살짝 키우고 두께 4.5px
+    if (variant === 3) {
+        // 시안 3: [4.5px 볼드 아웃라인 + 9시 별 y:58 하향]
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <RibbonBackground id="v4" />
-                {/* 1. Center Large Star (Slightly larger outline: M 50 13 ... 84 ... 81 ... 16) */}
+                <RibbonBackground id="v3" />
+                {/* 1. Center Large Star (Bold 4.5px) */}
                 <path
-                    d="M 50 13 C 50 37, 60 47, 84 47 C 60 47, 50 57, 50 81 C 50 57, 40 47, 16 47 C 40 47, 50 37, 50 13 Z"
+                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
                     stroke="#ffffff"
                     strokeWidth="4.5"
                     strokeLinejoin="round"
@@ -126,43 +95,73 @@ export const EunhasuLogoIcon = ({ variant = 1, className = "w-7 h-7" }) => {
                 <path
                     d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
                     stroke="#ffffff"
-                    strokeWidth="3.2"
+                    strokeWidth="3.4"
                     strokeLinejoin="round"
                 />
                 {/* 3. Bottom-Right Star */}
                 <path
                     d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                     stroke="#ffffff"
-                    strokeWidth="3.2"
+                    strokeWidth="3.4"
                     strokeLinejoin="round"
                 />
-                {/* 1번 시안 점 개수/위치/광도 동일 적용 */}
-                <SatelliteDots />
+                <AdjustedSatelliteDots dotX={13} dotY={58} />
             </svg>
         );
     }
 
-    // Default 시안 1: [1번 원본 - 솔리드 순백색 별 (Solid Bold)]
+    if (variant === 4) {
+        // 시안 4: [솔리드 순백색 별 + 9시 별 y:58 하향]
+        return (
+            <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <RibbonBackground id="v4" />
+                {/* 1. Center Large Star (Solid Pure White) */}
+                <path
+                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
+                    fill="#ffffff"
+                />
+                {/* 2. Top-Left Star */}
+                <path
+                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
+                    fill="#ffffff"
+                />
+                {/* 3. Bottom-Right Star */}
+                <path
+                    d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
+                    fill="#ffffff"
+                />
+                <AdjustedSatelliteDots dotX={13} dotY={58} />
+            </svg>
+        );
+    }
+
+    // Default 시안 1: [시안 3 원본 두께 5.2px + 9시 별 y:58 하향 조정 - 메인별 겹침 완전 해소]
     return (
         <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <RibbonBackground id="v1" />
-            {/* 1. Center Large Star (Bold Solid) */}
+            {/* 1. Center Large Star (Heavy Outlined 5.2px) */}
             <path
                 d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
-                fill="#ffffff"
+                stroke="#ffffff"
+                strokeWidth="5.2"
+                strokeLinejoin="round"
             />
-            {/* 2. Top-Left Star (Bold Solid) */}
+            {/* 2. Top-Left Star (3.8px) */}
             <path
                 d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
-                fill="#ffffff"
+                stroke="#ffffff"
+                strokeWidth="3.8"
+                strokeLinejoin="round"
             />
-            {/* 3. Bottom-Right Star (Bold Solid) */}
+            {/* 3. Bottom-Right Star (3.8px) */}
             <path
                 d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
-                fill="#ffffff"
+                stroke="#ffffff"
+                strokeWidth="3.8"
+                strokeLinejoin="round"
             />
-            {/* 1번 시안 점 개수/위치/광도 */}
-            <SatelliteDots />
+            {/* 9시 별을 y:46에서 y:58로 내려 메인별 좌측 끝(y:47)과의 겹침 완벽 해결 */}
+            <AdjustedSatelliteDots dotX={13} dotY={58} />
         </svg>
     );
 };
@@ -188,17 +187,17 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
     ];
 
     const logoOptions = [
-        { id: 1, name: '시안 1: 솔리드 순백색 별 (Solid Stars - 원본)' },
-        { id: 2, name: '시안 2: 두께 키운 아웃라인 (Thickened 4.2px Outline)' },
-        { id: 3, name: '시안 3: 더 묵직한 아웃라인 (Heavy 5.2px Outline)' },
-        { id: 4, name: '시안 4: 메인별 확장 아웃라인 (Expanded Bold Outline)' },
+        { id: 1, name: '시안 1: 5.2px 헤비 아웃라인 (9시 별 하향 y:58 - 기본)' },
+        { id: 2, name: '시안 2: 5.2px 헤비 아웃라인 (9시 별 더 아래 x:11, y:62)' },
+        { id: 3, name: '시안 3: 4.5px 볼드 아웃라인 (9시 별 하향 y:58)' },
+        { id: 4, name: '시안 4: 솔리드 순백색 별 (9시 별 하향 y:58)' },
     ];
 
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 py-3 shadow-lg shadow-black/40' : 'bg-transparent py-5'}`}>
             <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
                 
-                {/* Brand Logo Comparison */}
+                {/* Brand Logo with Adjusted 9 o'clock star */}
                 <div className="flex items-center space-x-3">
                     <a href="#home" className="flex items-center space-x-2.5 group">
                         <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center p-1 group-hover:border-blue-400/60 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all">
@@ -218,9 +217,9 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                     <button
                         onClick={() => setShowLogoPicker(!showLogoPicker)}
                         className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-300 hover:border-blue-500/40 transition-colors"
-                        title="솔리드 vs 아웃라인 두께 비교 시안 변경"
+                        title="9시 별 위치 조정 시안 4종 미리보기 변경"
                     >
-                        <span>{logoVariant === 1 ? '시안 #1 (솔리드)' : `시안 #${logoVariant} (아웃라인)`}</span>
+                        <span>9시 별 조정 #{logoVariant}</span>
                         <span className="text-[9px] text-blue-400">선택 ▾</span>
                     </button>
                 </div>
@@ -265,7 +264,7 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
             {showLogoPicker && (
                 <div className="max-w-6xl mx-auto px-6 pt-2">
                     <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                        <span className="text-slate-400 font-semibold mr-1">🔍 솔리드 vs 아웃라인 비교:</span>
+                        <span className="text-slate-400 font-semibold mr-1">🔍 9시 별 조정 시안:</span>
                         {logoOptions.map((opt) => (
                             <button
                                 key={opt.id}
