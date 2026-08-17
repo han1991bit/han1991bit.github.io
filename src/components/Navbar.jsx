@@ -103,10 +103,13 @@ export const EunhasuLogoSolid = ({ className = "w-6 h-6" }) => (
             fill="#ffffff"
         />
 
-        {/* Satellite dots */}
-        <circle cx="11" cy="62" r="2.0" fill="#ffffff" opacity="0.9" />
-        <circle cx="88" cy="22" r="2.0" fill="#ffffff" opacity="0.9" />
-        <circle cx="36" cy="74" r="1.8" fill="#ffffff" opacity="0.8" />
+        {/* Brightened Satellite dots */}
+        <circle cx="11" cy="62" r="4.0" fill="#38bdf8" opacity="0.35" />
+        <circle cx="11" cy="62" r="2.6" fill="#ffffff" />
+        <circle cx="88" cy="22" r="4.0" fill="#38bdf8" opacity="0.35" />
+        <circle cx="88" cy="22" r="2.6" fill="#ffffff" />
+        <circle cx="36" cy="74" r="3.5" fill="#38bdf8" opacity="0.35" />
+        <circle cx="36" cy="74" r="2.3" fill="#ffffff" />
     </svg>
 );
 
