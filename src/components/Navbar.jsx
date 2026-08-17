@@ -2,170 +2,161 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Download, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// [스케치 기반 전폭 와이드 & 연한 미니멀 컬러 은하수 로고 4종]
-export const EunhasuLogoIcon = ({ variant = 1, className = "w-7 h-7" }) => {
-    // 공통 defs (단색/아이스블루 미니멀 투명 그라데이션)
-    const renderDefs = (id) => (
-        <defs>
-            <linearGradient id={`streamGrad_${id}`} x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.25" />
-                <stop offset="40%" stopColor="#e0f2fe" stopOpacity="0.35" />
-                <stop offset="70%" stopColor="#38bdf8" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.3" />
-            </linearGradient>
-            <linearGradient id={`subStreamGrad_${id}`} x1="0%" y1="80%" x2="100%" y2="20%">
-                <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.15" />
-                <stop offset="60%" stopColor="#38bdf8" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.12" />
-            </linearGradient>
-        </defs>
-    );
+// 공통 defs (단색/아이스블루 미니멀 투명 그라데이션)
+const RenderDefs = ({ id }) => (
+    <defs>
+        <linearGradient id={`streamGrad30_${id}`} x1="0%" y1="70%" x2="100%" y2="30%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.25" />
+            <stop offset="50%" stopColor="#e0f2fe" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.2" />
+        </linearGradient>
+        <linearGradient id={`subStreamGrad30_${id}`} x1="0%" y1="55%" x2="100%" y2="35%">
+            <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.18" />
+            <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.22" />
+            <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.14" />
+        </linearGradient>
+    </defs>
+);
 
+// 30도 완만한 가로 은하수 리본 공통 경로
+const RibbonBackground = ({ id }) => (
+    <>
+        <RenderDefs id={id} />
+        {/* 1. Main 30-deg Horizontal Ribbon */}
+        <path
+            d="M 0 66 C 25 56, 42 66, 68 46 C 82 34, 92 26, 100 20 L 100 46 C 85 58, 65 72, 40 78 C 20 82, 10 80, 0 84 Z"
+            fill={`url(#streamGrad30_${id})`}
+        />
+        {/* 2. Overlapping Soft Layer */}
+        <path
+            d="M 0 52 C 25 44, 45 54, 72 36 C 86 26, 94 18, 100 12 L 100 24 C 85 36, 65 52, 38 64 C 18 70, 8 68, 0 70 Z"
+            fill={`url(#subStreamGrad30_${id})`}
+        />
+    </>
+);
+
+// [30도 완만한 가로 흐름 & 키운 별 / 아웃라인 시안 4종]
+export const EunhasuLogoIcon = ({ variant = 1, className = "w-7 h-7" }) => {
     if (variant === 2) {
-        // 시안 2: 다층 투명 리본 밴드 (전폭 엣지투엣지)
+        // 시안 2: [테두리만 아웃라인 (Stroke Line)] - 스케치 느낌의 굵은 화이트 아웃라인
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {renderDefs('v2')}
-                {/* 1. Main Wide Flow Ribbon */}
+                <RibbonBackground id="v2" />
+                {/* 1. Center Large Star (Outlined) */}
                 <path
-                    d="M 0 85 C 20 75, 40 60, 65 35 C 80 20, 90 10, 100 0 L 100 25 C 85 45, 60 70, 35 85 C 20 95, 10 98, 0 100 Z"
-                    fill="url(#streamGrad_v2)"
+                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
+                    stroke="#ffffff"
+                    strokeWidth="3.2"
+                    strokeLinejoin="round"
                 />
-                {/* 2. Secondary Overlapping Soft Ribbon */}
+                {/* 2. Top-Left Star (Outlined) */}
                 <path
-                    d="M 0 65 C 25 55, 45 45, 70 25 C 85 12, 92 5, 100 0 L 100 12 C 85 30, 60 55, 30 75 C 15 85, 5 90, 0 92 Z"
-                    fill="url(#subStreamGrad_v2)"
+                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
+                    stroke="#ffffff"
+                    strokeWidth="2.8"
+                    strokeLinejoin="round"
                 />
-                {/* Center Main Star */}
+                {/* 3. Bottom-Right Star (Outlined) */}
                 <path
-                    d="M 52 24 C 52 42, 58 48, 76 48 C 58 48, 52 54, 52 72 C 52 54, 46 48, 28 48 C 46 48, 52 42, 52 24 Z"
-                    fill="#ffffff"
+                    d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
+                    stroke="#ffffff"
+                    strokeWidth="2.8"
+                    strokeLinejoin="round"
                 />
-                {/* Top-Left Star */}
-                <path
-                    d="M 22 10 C 22 18, 25 21, 33 21 C 25 21, 22 24, 22 32 C 22 24, 19 21, 11 21 C 19 21, 22 18, 22 10 Z"
-                    fill="#ffffff"
-                />
-                {/* Bottom-Right Star */}
-                <path
-                    d="M 80 62 C 80 70, 83 73, 91 73 C 83 73, 80 76, 80 84 C 80 76, 77 73, 69 73 C 77 73, 80 70, 80 62 Z"
-                    fill="#ffffff"
-                />
-                {/* Scattered Satellite Dots */}
-                <circle cx="15" cy="45" r="1.5" fill="#ffffff" opacity="0.8" />
-                <circle cx="38" cy="72" r="1.8" fill="#ffffff" opacity="0.7" />
-                <circle cx="88" cy="28" r="1.5" fill="#ffffff" opacity="0.8" />
-                <circle cx="68" cy="15" r="1.2" fill="#ffffff" opacity="0.6" />
+                <circle cx="15" cy="48" r="1.6" fill="#ffffff" />
+                <circle cx="86" cy="20" r="1.6" fill="#ffffff" />
             </svg>
         );
     }
 
     if (variant === 3) {
-        // 시안 3: 은하 성운 점묘와 와이드 별빛 (Stardust Dust Cloud)
+        // 시안 3: [하이브리드] 메인 중심별은 솔리드 채움 + 서브별은 아웃라인 테두리
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {renderDefs('v3')}
-                {/* Translucent Soft Stream */}
+                <RibbonBackground id="v3" />
+                {/* 1. Center Large Star (Solid Pure White) */}
                 <path
-                    d="M 0 90 C 25 80, 45 60, 68 35 C 82 18, 92 8, 100 0 L 100 30 C 85 50, 60 75, 32 90 C 18 97, 8 100, 0 100 Z"
-                    fill="url(#streamGrad_v3)"
-                />
-                {/* Stardust Dot Field across the band */}
-                <g fill="#ffffff" opacity="0.75">
-                    <circle cx="12" cy="82" r="1" /><circle cx="18" cy="76" r="1.2" /><circle cx="25" cy="72" r="0.8" />
-                    <circle cx="32" cy="65" r="1.2" /><circle cx="40" cy="58" r="1" /><circle cx="48" cy="52" r="1.4" />
-                    <circle cx="58" cy="42" r="1.1" /><circle cx="66" cy="34" r="1.3" /><circle cx="75" cy="26" r="1" />
-                    <circle cx="84" cy="18" r="1.2" /><circle cx="92" cy="10" r="0.9" />
-                    <circle cx="28" cy="85" r="0.8" /><circle cx="52" cy="66" r="1" /><circle cx="74" cy="45" r="0.9" />
-                    <circle cx="60" cy="22" r="0.8" /><circle cx="82" cy="38" r="1" />
-                </g>
-                {/* Center Star */}
-                <path
-                    d="M 50 25 C 50 42, 56 48, 73 48 C 56 48, 50 54, 50 71 C 50 54, 44 48, 27 48 C 44 48, 50 42, 50 25 Z"
+                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
                     fill="#ffffff"
                 />
-                {/* Upper Left Star */}
+                {/* 2. Top-Left Star (Outlined) */}
                 <path
-                    d="M 22 10 C 22 18, 25 21, 33 21 C 25 21, 22 24, 22 32 C 22 24, 19 21, 11 21 C 19 21, 22 18, 22 10 Z"
-                    fill="#ffffff"
+                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
+                    stroke="#ffffff"
+                    strokeWidth="2.8"
+                    strokeLinejoin="round"
                 />
-                {/* Lower Right Star */}
+                {/* 3. Bottom-Right Star (Outlined) */}
                 <path
-                    d="M 80 62 C 80 70, 83 73, 91 73 C 83 73, 80 76, 80 84 C 80 76, 77 73, 69 73 C 77 73, 80 70, 80 62 Z"
-                    fill="#ffffff"
+                    d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
+                    stroke="#ffffff"
+                    strokeWidth="2.8"
+                    strokeLinejoin="round"
                 />
+                <circle cx="14" cy="46" r="1.6" fill="#ffffff" opacity="0.85" />
+                <circle cx="88" cy="22" r="1.6" fill="#ffffff" opacity="0.85" />
             </svg>
         );
     }
 
     if (variant === 4) {
-        // 시안 4: 완만한 와이드 수평-대각선 흐름 (Wide Sweeping Stream)
+        // 시안 4: [아웃라인 + 중심 코어 발광 점] 테두리 선 안에 작은 코어 점
         return (
             <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {renderDefs('v4')}
+                <RibbonBackground id="v4" />
+                {/* 1. Center Large Star (Outlined + Core) */}
                 <path
-                    d="M 0 75 C 25 65, 45 75, 70 50 C 85 35, 92 18, 100 0 L 100 28 C 88 50, 68 75, 45 88 C 25 98, 10 95, 0 90 Z"
-                    fill="url(#streamGrad_v4)"
+                    d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
+                    stroke="#ffffff"
+                    strokeWidth="3"
+                    strokeLinejoin="round"
                 />
-                {/* Center Star */}
+                <circle cx="50" cy="47" r="3.2" fill="#ffffff" />
+
+                {/* 2. Top-Left Star (Outlined + Core) */}
                 <path
-                    d="M 52 26 C 52 42, 58 48, 74 48 C 58 48, 52 54, 52 70 C 52 54, 46 48, 30 48 C 46 48, 52 42, 52 26 Z"
-                    fill="#ffffff"
+                    d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
+                    stroke="#ffffff"
+                    strokeWidth="2.6"
+                    strokeLinejoin="round"
                 />
-                {/* Top Left Star */}
+                <circle cx="20" cy="21" r="2" fill="#ffffff" />
+
+                {/* 3. Bottom-Right Star (Outlined + Core) */}
                 <path
-                    d="M 20 12 C 20 20, 23 23, 31 23 C 23 23, 20 26, 20 34 C 20 26, 17 23, 9 23 C 17 23, 20 20, 20 12 Z"
-                    fill="#ffffff"
+                    d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
+                    stroke="#ffffff"
+                    strokeWidth="2.6"
+                    strokeLinejoin="round"
                 />
-                {/* Bottom Right Star */}
-                <path
-                    d="M 82 64 C 82 72, 85 75, 93 75 C 85 75, 82 78, 82 86 C 82 78, 79 75, 71 75 C 79 75, 82 72, 82 64 Z"
-                    fill="#ffffff"
-                />
-                <circle cx="16" cy="50" r="1.5" fill="#ffffff" opacity="0.75" />
-                <circle cx="42" cy="78" r="1.6" fill="#ffffff" opacity="0.8" />
-                <circle cx="86" cy="24" r="1.5" fill="#ffffff" opacity="0.75" />
+                <circle cx="80" cy="72" r="2" fill="#ffffff" />
             </svg>
         );
     }
 
-    // Default 시안 1: 전폭 소프트 웨이브 & 맑은 화이트 주성 (Full-Bleed Soft Wave)
+    // Default 시안 1: [확대된 솔리드 순백색 별 (Solid Bold)] - 30도 완만한 가로 흐름
     return (
         <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {renderDefs('v1')}
-            {/* 1. Full-Bleed Translucent Milky Way Stream */}
+            <RibbonBackground id="v1" />
+            {/* 1. Center Large Star (Bold Solid) */}
             <path
-                d="M 0 78 C 18 68, 38 68, 62 42 C 78 24, 88 12, 100 0 L 100 24 C 86 44, 65 68, 42 84 C 24 96, 10 96, 0 94 Z"
-                fill="url(#streamGrad_v1)"
-            />
-            {/* Fine Dotted Dust Trail */}
-            <path
-                d="M 0 86 C 22 76, 42 74, 66 48 C 82 30, 92 16, 100 6"
-                stroke="#ffffff"
-                strokeWidth="1.2"
-                strokeDasharray="2 4"
-                opacity="0.45"
-            />
-            {/* 2. Center Prominent Star (중앙 대형 주성) */}
-            <path
-                d="M 50 22 C 50 41, 57 48, 76 48 C 57 48, 50 55, 50 74 C 50 55, 43 48, 24 48 C 43 48, 50 41, 50 22 Z"
+                d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
                 fill="#ffffff"
             />
-            {/* 3. Upper-Left Star (좌측 상단 별) */}
+            {/* 2. Top-Left Star (Bold Solid) */}
             <path
-                d="M 20 8 C 20 17, 23 20, 32 20 C 23 20, 20 23, 20 32 C 20 23, 17 20, 8 20 C 17 20, 20 17, 20 8 Z"
+                d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
                 fill="#ffffff"
             />
-            {/* 4. Lower-Right Star (우측 하단 별) */}
+            {/* 3. Bottom-Right Star (Bold Solid) */}
             <path
-                d="M 80 62 C 80 71, 83 74, 92 74 C 83 74, 80 77, 80 86 C 80 77, 77 74, 68 74 C 77 74, 80 71, 80 62 Z"
+                d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
                 fill="#ffffff"
             />
-            {/* 5. Satellite Dots (원형 보조 별빛) */}
-            <circle cx="12" cy="46" r="1.8" fill="#ffffff" opacity="0.8" />
-            <circle cx="36" cy="74" r="1.8" fill="#ffffff" opacity="0.75" />
-            <circle cx="86" cy="22" r="1.8" fill="#ffffff" opacity="0.8" />
-            <circle cx="68" cy="14" r="1.4" fill="#ffffff" opacity="0.6" />
+            {/* Satellite Dots */}
+            <circle cx="14" cy="46" r="1.8" fill="#ffffff" opacity="0.85" />
+            <circle cx="88" cy="22" r="1.8" fill="#ffffff" opacity="0.85" />
+            <circle cx="36" cy="74" r="1.6" fill="#ffffff" opacity="0.75" />
         </svg>
     );
 };
@@ -191,17 +182,17 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
     ];
 
     const logoOptions = [
-        { id: 1, name: '시안 1: 전폭 소프트 웨이브 (Soft Wave)' },
-        { id: 2, name: '시안 2: 다층 투명 리본 (Layered Ribbon)' },
-        { id: 3, name: '시안 3: 성운 점묘 & 별빛 (Stardust Dust)' },
-        { id: 4, name: '시안 4: 와이드 은하수 흐름 (Wide Stream)' },
+        { id: 1, name: '시안 1: 30도 가로흐름 + 확대 솔리드 별 (Solid Bold)' },
+        { id: 2, name: '시안 2: 30도 가로흐름 + 테두리 아웃라인 별 (Outlined)' },
+        { id: 3, name: '시안 3: 메인 솔리드 + 서브 아웃라인 (Hybrid)' },
+        { id: 4, name: '시안 4: 아웃라인 별 + 중심 발광 코어 (Glowing Core)' },
     ];
 
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 py-3 shadow-lg shadow-black/40' : 'bg-transparent py-5'}`}>
             <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
                 
-                {/* Brand Logo with Spacious Full-Box Design */}
+                {/* Brand Logo with 30-deg Developed Design */}
                 <div className="flex items-center space-x-3">
                     <a href="#home" className="flex items-center space-x-2.5 group">
                         <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center p-1 group-hover:border-blue-400/60 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all">
@@ -221,9 +212,9 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
                     <button
                         onClick={() => setShowLogoPicker(!showLogoPicker)}
                         className="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-blue-300 hover:border-blue-500/40 transition-colors"
-                        title="와이드 은하수 시안 4종 미리보기 변경"
+                        title="30도 가로흐름 디벨롭 시안 4종 미리보기 변경"
                     >
-                        <span>와이드 시안 #{logoVariant}</span>
+                        <span>30도 시안 #{logoVariant}</span>
                         <span className="text-[9px] text-blue-400">선택 ▾</span>
                     </button>
                 </div>
@@ -268,7 +259,7 @@ const Navbar = ({ logoVariant = 1, onSelectLogo }) => {
             {showLogoPicker && (
                 <div className="max-w-6xl mx-auto px-6 pt-2">
                     <div className="p-3 bg-slate-900/95 border border-slate-800 rounded-xl shadow-2xl backdrop-blur-xl flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                        <span className="text-slate-400 font-semibold mr-1">🌌 와이드 은하수 시안:</span>
+                        <span className="text-slate-400 font-semibold mr-1">🌌 30도 디벨롭 시안:</span>
                         {logoOptions.map((opt) => (
                             <button
                                 key={opt.id}
