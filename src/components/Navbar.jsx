@@ -2,52 +2,108 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Download, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// [은하수 AI 공식 로고] 30도 가로 은하수 리본 & 솔리드 순백색 별 (1안 확정)
-export const EunhasuLogoIcon = ({ className = "w-8 h-8" }) => (
+// [메인 아이콘: 은하수 AI 공식 아웃라인 로고 - Navbar 전용]
+export const EunhasuLogoOutlined = ({ className = "w-8 h-8" }) => (
     <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-            <linearGradient id="eunhasuMainStream" x1="0%" y1="70%" x2="100%" y2="30%">
-                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.28" />
-                <stop offset="50%" stopColor="#e0f2fe" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.22" />
+            <linearGradient id="eunhasuMainStreamOutlined" x1="0%" y1="70%" x2="100%" y2="30%">
+                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.25" />
+                <stop offset="50%" stopColor="#e0f2fe" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.2" />
             </linearGradient>
-            <linearGradient id="eunhasuSubStream" x1="0%" y1="55%" x2="100%" y2="35%">
-                <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.2" />
-                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.16" />
+            <linearGradient id="eunhasuSubStreamOutlined" x1="0%" y1="55%" x2="100%" y2="35%">
+                <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.18" />
+                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.14" />
             </linearGradient>
         </defs>
 
         {/* 1. Main 30-deg Horizontal Ribbon */}
         <path
             d="M 0 66 C 25 56, 42 66, 68 46 C 82 34, 92 26, 100 20 L 100 46 C 85 58, 65 72, 40 78 C 20 82, 10 80, 0 84 Z"
-            fill="url(#eunhasuMainStream)"
+            fill="url(#eunhasuMainStreamOutlined)"
         />
         {/* 2. Overlapping Soft Layer */}
         <path
             d="M 0 52 C 25 44, 45 54, 72 36 C 86 26, 94 18, 100 12 L 100 24 C 85 36, 65 52, 38 64 C 18 70, 8 68, 0 70 Z"
-            fill="url(#eunhasuSubStream)"
+            fill="url(#eunhasuSubStreamOutlined)"
         />
 
-        {/* 1. Center Large Star (Solid Pure White) */}
+        {/* 1. Center Large Star (Outlined 5.2px) */}
+        <path
+            d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
+            stroke="#ffffff"
+            strokeWidth="5.2"
+            strokeLinejoin="round"
+        />
+
+        {/* 2. Top-Left Star (Outlined 3.8px) */}
+        <path
+            d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
+            stroke="#ffffff"
+            strokeWidth="3.8"
+            strokeLinejoin="round"
+        />
+
+        {/* 3. Bottom-Right Star (Outlined 3.8px) */}
+        <path
+            d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
+            stroke="#ffffff"
+            strokeWidth="3.8"
+            strokeLinejoin="round"
+        />
+
+        {/* Satellite dots (x:11, y:62 / x:88, y:22 / x:36, y:74) */}
+        <circle cx="11" cy="62" r="1.8" fill="#ffffff" opacity="0.85" />
+        <circle cx="88" cy="22" r="1.8" fill="#ffffff" opacity="0.85" />
+        <circle cx="36" cy="74" r="1.6" fill="#ffffff" opacity="0.75" />
+    </svg>
+);
+
+// [서브 아이콘: 솔리드 순백색 채움 로고 - Footer 및 소형 전용]
+export const EunhasuLogoSolid = ({ className = "w-6 h-6" }) => (
+    <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="eunhasuMainStreamSolid" x1="0%" y1="70%" x2="100%" y2="30%">
+                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.28" />
+                <stop offset="50%" stopColor="#e0f2fe" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.22" />
+            </linearGradient>
+            <linearGradient id="eunhasuSubStreamSolid" x1="0%" y1="55%" x2="100%" y2="35%">
+                <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.2" />
+                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#bae6fd" stopOpacity="0.16" />
+            </linearGradient>
+        </defs>
+
+        <path
+            d="M 0 66 C 25 56, 42 66, 68 46 C 82 34, 92 26, 100 20 L 100 46 C 85 58, 65 72, 40 78 C 20 82, 10 80, 0 84 Z"
+            fill="url(#eunhasuMainStreamSolid)"
+        />
+        <path
+            d="M 0 52 C 25 44, 45 54, 72 36 C 86 26, 94 18, 100 12 L 100 24 C 85 36, 65 52, 38 64 C 18 70, 8 68, 0 70 Z"
+            fill="url(#eunhasuSubStreamSolid)"
+        />
+
+        {/* Center Large Star (Solid Pure White) */}
         <path
             d="M 50 16 C 50 38, 59 47, 81 47 C 59 47, 50 56, 50 78 C 50 56, 41 47, 19 47 C 41 47, 50 38, 50 16 Z"
             fill="#ffffff"
         />
 
-        {/* 2. Top-Left Star (Solid Pure White) */}
+        {/* Top-Left Star (Solid Pure White) */}
         <path
             d="M 20 6 C 20 17, 24 21, 35 21 C 24 21, 20 25, 20 36 C 20 25, 16 21, 5 21 C 16 21, 20 17, 20 6 Z"
             fill="#ffffff"
         />
 
-        {/* 3. Bottom-Right Star (Solid Pure White) */}
+        {/* Bottom-Right Star (Solid Pure White) */}
         <path
             d="M 80 58 C 80 68, 84 72, 94 72 C 84 72, 80 76, 80 86 C 80 76, 76 72, 66 72 C 76 72, 80 68, 80 58 Z"
             fill="#ffffff"
         />
 
-        {/* Satellite dots (x:11, y:62 / x:88, y:22 / x:36, y:74) */}
+        {/* Satellite dots */}
         <circle cx="11" cy="62" r="2.0" fill="#ffffff" opacity="0.9" />
         <circle cx="88" cy="22" r="2.0" fill="#ffffff" opacity="0.9" />
         <circle cx="36" cy="74" r="1.8" fill="#ffffff" opacity="0.8" />
@@ -77,10 +133,10 @@ const Navbar = () => {
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 py-3 shadow-lg shadow-black/40' : 'bg-transparent py-5'}`}>
             <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
                 
-                {/* Final Official Brand Logo (Solid 1안) */}
+                {/* 메인 아이콘: 원래 확정된 아웃라인 로고 적용 */}
                 <a href="#home" className="flex items-center space-x-3 group">
                     <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center p-1 group-hover:border-blue-400/60 group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all">
-                        <EunhasuLogoIcon className="w-8 h-8" />
+                        <EunhasuLogoOutlined className="w-8 h-8" />
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xl font-bold tracking-tight text-white font-outfit flex items-center gap-1.5">
